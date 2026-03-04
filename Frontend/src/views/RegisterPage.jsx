@@ -1,7 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+
+import React, { useContext, useState } from "react";
+import AuthContext from "../context/AuthContext";
+import { Link } from "react-router-dom";
+
+
+
+
 
 const RegisterPage = () => {
+
+    const { registerUser } = useContext(AuthContext); 
+    
+    const[email, setEmail] = useState("")
+    const[username, setUsername] = useState("")
+    const[password, setPassword] = useState("")
+    const[password2, setPassword2] = useState("")
+
+    const handleSubmit = async (e) => {
+      e.preventDefault()
+      registerUser(email, username, password, password2)
+
+      console.log(email, username, password, password2)
+
+    }
+
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 lg:p-0">
       {/* Main Container */}
@@ -46,22 +68,17 @@ const RegisterPage = () => {
             <p className="text-gray-500 font-medium mt-2">Sign up to get started with your new blog.</p>
           </div>
 
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}>
             {/* Full Name */}
-            <div className="md:col-span-2">
-              <label className="block text-sm font-bold text-gray-700 mb-2 ml-1">Full Name</label>
-              <input 
-                type="text" 
-                placeholder="John Doe"
-                className="w-full px-5 py-3.5 rounded-2xl bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all duration-300 outline-none"
-              />
-            </div>
+            
 
             {/* Username */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2 ml-1">Username</label>
               <input 
                 type="text" 
+                name="username"
+                onChange={e => setUsername(e.target.value)}
                 placeholder="johndoe_dev"
                 className="w-full px-5 py-3.5 rounded-2xl bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all duration-300 outline-none"
               />
@@ -72,6 +89,8 @@ const RegisterPage = () => {
               <label className="block text-sm font-bold text-gray-700 mb-2 ml-1">Email</label>
               <input 
                 type="email" 
+                name="email"
+                onChange={e => setEmail(e.target.value)}
                 placeholder="john@example.com"
                 className="w-full px-5 py-3.5 rounded-2xl bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all duration-300 outline-none"
               />
@@ -82,6 +101,16 @@ const RegisterPage = () => {
               <label className="block text-sm font-bold text-gray-700 mb-2 ml-1">Password</label>
               <input 
                 type="password" 
+                name="password"
+                onChange={e => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full px-5 py-3.5 rounded-2xl bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all duration-300 outline-none"
+              />
+              <label className="block text-sm mt-5 font-bold text-gray-700 mb-2 ml-1">Confirm Password</label>
+              <input 
+                type="password" 
+                name="password2"
+                onChange={e => setPassword2(e.target.value)}
                 placeholder="••••••••"
                 className="w-full px-5 py-3.5 rounded-2xl bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all duration-300 outline-none"
               />
